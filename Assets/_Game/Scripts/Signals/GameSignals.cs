@@ -2,7 +2,7 @@
 
 namespace FruitMerge.Events
 {
-    public static class GameEvents
+    public static class GameSignals
     {
         public struct OnDragging
         {

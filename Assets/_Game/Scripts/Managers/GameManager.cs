@@ -8,7 +8,7 @@ namespace FruitMerge.Game
     {
         [SerializeField] private LevelController levelController;
 
-        [Inject] private EntityDropper _entityDropper;
+        [Inject] private EntityDropController _entityDropController;
         [Inject] private InputHandler _inputHandler;
 
         private void Awake()
@@ -23,7 +23,7 @@ namespace FruitMerge.Game
 
         public void StartGame()
         {
-            _entityDropper.Initialize();
+            _entityDropController.Initialize();
         }
 
         public void GameOver()

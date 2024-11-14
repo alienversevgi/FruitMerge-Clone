@@ -14,8 +14,8 @@ namespace _Game.Scripts
 
         private void BindSignals()
         {
-            Container.DeclareSignal<GameEvents.OnDragging>().OptionalSubscriber();
-            Container.DeclareSignal<GameEvents.OnDraggingCompleted>().OptionalSubscriber();
+            Container.DeclareSignal<GameSignals.OnDragging>().OptionalSubscriber();
+            Container.DeclareSignal<GameSignals.OnDraggingCompleted>().OptionalSubscriber();
         }
     }
 }

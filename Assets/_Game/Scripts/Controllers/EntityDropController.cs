@@ -4,7 +4,7 @@ using Zenject;
 
 namespace FruitMerge.Game
 {
-    public class EntityDropper : MonoBehaviour
+    public class EntityDropController : MonoBehaviour
     {
         [Inject] private EntityFactory _entityFactory;
         [Inject] private SignalBus _signalBus;
@@ -16,8 +16,8 @@ namespace FruitMerge.Game
 
         public void Initialize()
         {
-            _signalBus.Subscribe<GameEvents.OnDragging>(OnDragging);
-            _signalBus.Subscribe<GameEvents.OnDraggingCompleted>(OnDraggingCompleted);
+            _signalBus.Subscribe<GameSignals.OnDragging>(OnDragging);
+            _signalBus.Subscribe<GameSignals.OnDraggingCompleted>(OnDraggingCompleted);
 
             _defaultPosition = this.transform.position;
             Spawn();
@@ -25,8 +25,8 @@ namespace FruitMerge.Game
 
         private void Spawn()
         {
-            var spawnPoint = this.transform.position;
-            _currentEntity = _entityFactory.SpawnRandomEntity(spawnPoint);
+            this.transform.position = _defaultPosition;
+            _currentEntity = _entityFactory.SpawnRandomEntity(_defaultPosition);
             _currentEntity.Initialize(false);
         }
 
@@ -42,9 +42,10 @@ namespace FruitMerge.Game
             newPosition.x = x;
 
             _currentEntity.transform.position = newPosition;
+            this.transform.position = newPosition;
         }
 
-        private void OnDraggingCompleted(GameEvents.OnDraggingCompleted eventData)
+        private void OnDraggingCompleted(GameSignals.OnDraggingCompleted eventData)
         {
             if (!_isEntityReady)
                 return;
@@ -53,7 +54,7 @@ namespace FruitMerge.Game
             Spawn();
         }
 
-        private void OnDragging(GameEvents.OnDragging eventData)
+        private void OnDragging(GameSignals.OnDragging eventData)
         {
             if (!_isEntityReady)
                 return;

@@ -32,7 +32,7 @@ namespace FruitMerge.Game
                 _dragPosition =
                     camera.ScreenToWorldPoint(new Vector3(mousePosition.x, mousePosition.y, camera.nearClipPlane));
                
-                _signalBus.Fire(new GameEvents.OnDragging()
+                _signalBus.Fire(new GameSignals.OnDragging()
                                 {
                                     Position = _dragPosition
                                 }
@@ -43,7 +43,7 @@ namespace FruitMerge.Game
             {
                 _isDragging = false;
                 
-                _signalBus.Fire(new GameEvents.OnDraggingCompleted()
+                _signalBus.Fire(new GameSignals.OnDraggingCompleted()
                                 {
                                     Position = _dragPosition
                                 }
