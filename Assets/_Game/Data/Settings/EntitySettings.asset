@@ -12,16 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01bc5f9a678e4025aa653efd5f564bab, type: 3}
   m_Name: EntitySettings
   m_EditorClassIdentifier: 
-  views: []
-  prefabs:
-  - {fileID: 2144700638996948276, guid: b35117d605f17604eb424bcbc1622ed0, type: 3}
-  - {fileID: 2144700638996948276, guid: cc9fc7d606980fe47ab81474dadf7166, type: 3}
-  - {fileID: 2144700638996948276, guid: 174816d7bb9006c428aeab2e08b0cc28, type: 3}
-  - {fileID: 2144700638996948276, guid: 1a6c18ea3d379884191565867d4819bf, type: 3}
-  - {fileID: 2144700638996948276, guid: 9252be260ba589849904b6d3580b1b3c, type: 3}
-  - {fileID: 2144700638996948276, guid: 7631d6b77e062a44c9bfed7183b67537, type: 3}
-  - {fileID: 2144700638996948276, guid: 9ed37d33a53a59a4599a53de40c1435f, type: 3}
-  - {fileID: 2144700638996948276, guid: 07f96d6fe664b184eb0c974307126266, type: 3}
-  - {fileID: 2144700638996948276, guid: 15ac5469cebd49147b8d4cd3116cbfd8, type: 3}
-  - {fileID: 2144700638996948276, guid: eebb28c23f9c61b49825fa90302fbf7b, type: 3}
-  - {fileID: 2144700638996948276, guid: a3b3535b4082a9247b3af8c0b6c934fd, type: 3}
+  entities:
+  - {fileID: 11400000, guid: d705a493386ef65498cbcea82713e990, type: 2}
+  - {fileID: 11400000, guid: ceb91a467c2b96b4c87b3ac822a4ecb1, type: 2}
+  - {fileID: 11400000, guid: c0e2035f7e0395a4491bd67b696edbe6, type: 2}
+  - {fileID: 11400000, guid: f9b3a33990dcf9646bced34f7d677bad, type: 2}
+  - {fileID: 11400000, guid: b284d8bd1515f5549a9d5f8eb2e6860e, type: 2}
+  - {fileID: 11400000, guid: 343192485c194c945942d92a6e5180bc, type: 2}
+  - {fileID: 11400000, guid: 17b8a500b0b853548b7387fa4cb706dd, type: 2}
+  - {fileID: 11400000, guid: 0451cb31ca469bc4ab0720ffb56fb79e, type: 2}
+  - {fileID: 11400000, guid: 7f2621fb1ff91ba458fe8e8e33612174, type: 2}
+  - {fileID: 11400000, guid: 975dfcbbee25b1e44b3fde1119a49266, type: 2}
+  - {fileID: 11400000, guid: 732670b80e8184a4999e99f2a91a3487, type: 2}

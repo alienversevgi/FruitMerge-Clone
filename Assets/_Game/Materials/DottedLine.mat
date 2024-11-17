@@ -97,7 +97,8 @@ Material:
     - _DstBlend: 0
     - _EmissionEnabled: 0
     - _FlipbookMode: 0
-    - _Float: 1
+    - _Float: 0.96
+    - _Float_1: -24.45
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
@@ -112,16 +113,24 @@ Material:
     - _SoftParticlesFarFadeDistance: 1
     - _SoftParticlesNearFadeDistance: 0
     - _SpecularHighlights: 1
+    - _Speed: 0.91
     - _SrcBlend: 1
     - _Tiling: 1
     - _UVSec: 0
     - _ZWrite: 1
+    - _a: 1
+    - _b: 0.94
     m_Colors:
+    - _BottomColor: {r: 1, g: 1, b: 1, a: 1}
     - _CameraFadeParams: {r: 0, g: Infinity, b: 0, a: 0}
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _Color: {r: 0.91372555, g: 0.21176472, b: 0.3921569, a: 1}
     - _ColorAddSubDiff: {r: 0, g: 0, b: 0, a: 0}
+    - _ColorBottom: {r: 0, g: 1, b: 0.024237156, a: 1}
+    - _ColorTop: {r: 1, g: 0, b: 0, a: 1}
     - _Direction: {r: -1, g: 0, b: 0, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _SoftParticleFadeParams: {r: 0, g: 0, b: 0, a: 0}
     - _TintColor: {r: 1, g: 1, b: 1, a: 0.5}
+    - _TopColor: {r: 1, g: 1, b: 1, a: 1}
+    - _Vector4: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []

@@ -6,12 +6,12 @@ namespace FruitMerge.Util
 {
     public static class GameUtil
     {
-        public static bool IsInSizeRange(int size)
+        public static bool IsInSizeRange(in int size)
         {
             return size >= Const.MIN_ENTITY_LEVEL && size <= Const.MAX_ENTITY_LEVEL;
         }
 
-        public static bool CheckLevelRange(int size)
+        public static bool CheckLevelRange(in int size)
         {
             bool isInSizeRange = IsInSizeRange(size);
             if (!isInSizeRange)

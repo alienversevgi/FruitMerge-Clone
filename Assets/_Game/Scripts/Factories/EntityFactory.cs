@@ -11,14 +11,6 @@ namespace FruitMerge.Game
         [Inject] private EntitySettings _entitySettings;
         [Inject] private DiContainer _diContainer;
 
-        public Entity SpawnRandomEntity(Vector3 position)
-        {
-            var prefab = _entitySettings.GetRandomPrefab();
-            var entity = InstantiateEntity(prefab, position, defaultContainer);
-
-            return entity;
-        }
-
         public Entity SpawnEntity(int level, Vector3 position)
         {
             var prefab = _entitySettings.GetPrefab(level);
