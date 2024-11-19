@@ -1,33 +1,39 @@
-﻿using FruitMerge.Events;
+﻿using _Game.Scripts.Misc;
+using FruitMerge.Events;
 using FruitMerge.Util;
-using UnityEngine;
 using Zenject;
 
 namespace FruitMerge.Game
 {
-    public class MergeController : MonoBehaviour
+    public class MergeHandler 
     {
-        [SerializeField] private GameObject mergeEffectPrefab;
-
         [Inject] private EntityFactory _entityFactory;
         [Inject] private SignalBus _signalBus;
+        [Inject] private MergeEffect.Pool _mergeEffectPool;
 
         private void Merge(Entity from, Entity to)
         {
-            Debug.Log($"Merge : {from.gameObject.name} - {to.gameObject.name}");
+            // Debug.Log($"Merge : {from.gameObject.name} - {to.gameObject.name}");
             int currentLevel = from.Level;
             int nextLevel = currentLevel + 1;
             from.Dispose();
             to.Dispose();
- 
+
             if (GameUtil.IsInSizeRange(nextLevel))
             {
                 var entity = _entityFactory.SpawnEntity(nextLevel, from.ContactPoint);
                 entity.Initialize(true);
                 entity.PlayMergeAnimation();
+                _signalBus.Fire(new GameSignals.OnEntityAdded()
+                {
+                    Entity = entity
+                });
             }
 
-            Instantiate(mergeEffectPrefab, from.ContactPoint, Quaternion.identity);
+            //TODO: Maybe can move to another class (EffectController) 
+            var effect = _mergeEffectPool.Spawn();
+            effect.Initialize(currentLevel, from.ContactPoint);
+
             _signalBus.Fire(new GameSignals.OnMergeCompleted()
             {
                 Level = currentLevel

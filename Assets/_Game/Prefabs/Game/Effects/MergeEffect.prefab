@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6507747369141284042}
+  - component: {fileID: 2286857043239898498}
   m_Layer: 0
   m_Name: MergeEffect
   m_TagString: Untagged
@@ -32,6 +33,19 @@ Transform:
   - {fileID: 5987359746089953498}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2286857043239898498
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3254178218085499896}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1888b5f767046219bbb8204805f2dcd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  coloredParticle: {fileID: 5987359746089953508}
 --- !u!1 &5866561749426607270
 GameObject:
   m_ObjectHideFlags: 0

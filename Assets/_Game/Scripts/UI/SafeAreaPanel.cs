@@ -22,7 +22,7 @@ namespace FruitMerge.UI
         private void OnEnable()
         {
             _safeAreaHandler.ApplySafeArea(_rectTransform);
-            _signalBus.Subscribe<GameSignals.SafeAreaChanged>(OnSafeAreaChanged);
+            _signalBus.Subscribe<GameSignals.OnSafeAreaChanged>(OnSafeAreaChanged);
         }
 
         private void OnDisable()
@@ -37,7 +37,7 @@ namespace FruitMerge.UI
         
         public void Dispose()
         {
-            _signalBus.TryUnsubscribe<GameSignals.SafeAreaChanged>(OnSafeAreaChanged);
+            _signalBus.TryUnsubscribe<GameSignals.OnSafeAreaChanged>(OnSafeAreaChanged);
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using FruitMerge.Events;
+using FruitMerge.Managers;
 using TMPro;
 using UnityEngine;
 using Zenject;
@@ -10,10 +11,11 @@ namespace FruitMerge.Game.UI
         [SerializeField] private TextMeshProUGUI scoreText;
         
         [Inject] private SignalBus _signalBus;
+        [Inject] private DataManager _dataManager;
         
         public void Initialize()
         {
-            UpdateScoreText(0);
+            UpdateScoreText(_dataManager.PlayerData.CurrentScore);
             _signalBus.Subscribe<GameSignals.OnScoreGained>(OnScoreGained);
         }
 

@@ -10,6 +10,7 @@ namespace FruitMerge.Game
     {
         public int[] GetQueue() => _queue.ToArray();
         public int CurrentLevel { get; private set; }
+        public int StarterLevel { get; private set; }
 
         [Inject] private SignalBus _signalBus;
 
@@ -18,14 +19,20 @@ namespace FruitMerge.Game
 
         public void Initialize()
         {
-            _tempQueue = new Queue<int>(Const.QUEUE_COUNT);
-            _queue = new Queue<int>(Const.QUEUE_COUNT);
+            if (StarterLevel == -1)
+                StarterLevel = Random.Range(Const.MIN_ENTITY_LEVEL, Const.MAX_SPAWN_STARTER_ENTITY_LEVEL);
 
-            for (int i = 0; i < Const.QUEUE_COUNT; i++)
+            if (_queue is null)
             {
-                _queue.Enqueue(Random.Range(Const.MIN_ENTITY_LEVEL, Const.MAX_SPAWN_ENTITY_LEVEL));
-            }
+                _queue = new Queue<int>(Const.QUEUE_COUNT);
 
+                for (int i = 0; i < Const.QUEUE_COUNT; i++)
+                {
+                    _queue.Enqueue(Random.Range(Const.MIN_ENTITY_LEVEL, Const.MAX_SPAWN_ENTITY_LEVEL));
+                }
+            }
+            
+            _tempQueue = new Queue<int>(Const.QUEUE_COUNT);
             for (int i = 0; i < Const.QUEUE_TEMP_COUNT; i++)
             {
                 _tempQueue.Enqueue(Random.Range(Const.MIN_ENTITY_LEVEL, Const.MAX_SPAWN_ENTITY_LEVEL));
@@ -34,9 +41,10 @@ namespace FruitMerge.Game
             _signalBus.Subscribe<GameSignals.OnEntityReleased>(OnEntityReleased);
         }
 
-        public int GetStarterLevel()
+        public void SetData(int starterLevel, int[] nextEntities)
         {
-            return Random.Range(Const.MIN_ENTITY_LEVEL, Const.MAX_SPAWN_STARTER_ENTITY_LEVEL);
+            StarterLevel = starterLevel;
+            _queue = new Queue<int>(nextEntities);
         }
 
         private void UpdateQueue()

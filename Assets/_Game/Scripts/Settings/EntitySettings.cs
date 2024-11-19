@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using _Game.Scripts.Data;
-using FruitMerge.Util;
+using _Game.Scripts.Misc;
 using UnityEngine;
 
 namespace FruitMerge.Game

@@ -14,10 +14,10 @@ namespace FruitMerge.Game
         public void Initialize()
         {
             ApplySafeArea(_safeAreaHandler.SafeAreaAnchor);
-            _signalBus.Subscribe<GameSignals.SafeAreaChanged>(OnSafeAreaChanged);
+            _signalBus.Subscribe<GameSignals.OnSafeAreaChanged>(OnSafeAreaChanged);
         }
 
-        private void OnSafeAreaChanged(GameSignals.SafeAreaChanged signalData)
+        private void OnSafeAreaChanged(GameSignals.OnSafeAreaChanged signalData)
         {
             ApplySafeArea(signalData.SafeAreaAnchor);
         }
@@ -31,7 +31,7 @@ namespace FruitMerge.Game
 
         public void Dispose()
         {
-            _signalBus.TryUnsubscribe<GameSignals.SafeAreaChanged>(OnSafeAreaChanged);
+            _signalBus.TryUnsubscribe<GameSignals.OnSafeAreaChanged>(OnSafeAreaChanged);
         }
     }
 }

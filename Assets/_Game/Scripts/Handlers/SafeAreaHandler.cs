@@ -83,7 +83,7 @@ namespace FruitMerge.Game
                 _lastOrientation = Screen.orientation;
 
                 SafeAreaAnchor = GetSafeAreaAnchor();
-                _signalBus.Fire(new GameSignals.SafeAreaChanged()
+                _signalBus.Fire(new GameSignals.OnSafeAreaChanged()
                 {
                     SafeAreaAnchor = SafeAreaAnchor
                 });

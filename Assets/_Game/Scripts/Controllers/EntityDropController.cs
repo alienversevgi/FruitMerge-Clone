@@ -12,13 +12,15 @@ namespace FruitMerge.Game
         [Inject] private NextQueueHandler _nextQueueHandler;
         [Inject] private EntitySettings _entitySettings;
 
-        private Entity _currentEntity;
+        public Entity Current => _currentCurrent;
+        
+        private Entity _currentCurrent;
         private Vector3 _defaultPosition;
         private LineRenderer _lineRenderer;
         
         private static readonly int LineRendererColorName = Shader.PropertyToID("_Color");
 
-        private bool _isEntityReady => _currentEntity is not null;
+        private bool _isEntityReady => _currentCurrent is not null;
 
         public void Initialize()
         {
@@ -29,20 +31,20 @@ namespace FruitMerge.Game
             _defaultPosition = this.transform.position;
             _lineRenderer = this.GetComponent<LineRenderer>();
             _lineRenderer.enabled = false;
-            Spawn(_nextQueueHandler.GetStarterLevel());
+            Spawn(_nextQueueHandler.StarterLevel);
         }
 
         private void OnQueueUpdated(GameSignals.OnQueueAnimationCompleted signalData)
         {
-            Spawn(9);
+            Spawn(_nextQueueHandler.CurrentLevel);
         }
 
         private void Spawn(in int level)
         {
             this.transform.position = _defaultPosition;
-            _currentEntity = _entityFactory.SpawnEntity(level, _defaultPosition);
-            _currentEntity.Initialize(false);
-            _lineRenderer.material.SetColor(LineRendererColorName, _entitySettings.GetColor(_currentEntity.Level));
+            _currentCurrent = _entityFactory.SpawnEntity(level, _defaultPosition);
+            _currentCurrent.Initialize(false);
+            _lineRenderer.material.SetColor(LineRendererColorName, _entitySettings.GetColor(_currentCurrent.Level));
             _lineRenderer.enabled = true;
         }
 
@@ -50,11 +52,16 @@ namespace FruitMerge.Game
         {
             _signalBus.Fire(new GameSignals.OnEntityReleased()
             {
-                EntityLevel = _currentEntity.Level
+                EntityLevel = _currentCurrent.Level
             });
-
-            _currentEntity.SetActivePhysics(true);
-            _currentEntity = null;
+            
+            _signalBus.Fire(new GameSignals.OnEntityAdded()
+            {
+                Entity = _currentCurrent
+            });
+            
+            _currentCurrent.SetActivePhysics(true);
+            _currentCurrent = null;
             _lineRenderer.enabled = false;
         }
 
@@ -63,7 +70,7 @@ namespace FruitMerge.Game
             var newPosition = _defaultPosition;
             newPosition.x = x;
 
-            _currentEntity.transform.position = newPosition;
+            _currentCurrent.transform.position = newPosition;
             this.transform.position = newPosition;
         }
 

@@ -9,9 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4710cfc2cf8f40df8c106e84c52fe899, type: 3}
-  m_Name: GlobalSettingsInstaller
+  m_Script: {fileID: 11500000, guid: b2379b69fdec47cc8036a2e04d70d6f4, type: 3}
+  m_Name: PrefabSettings
   m_EditorClassIdentifier: 
-  _settings:
-  - {fileID: 11400000, guid: 26106d859dc2262438791c0d21b796da, type: 2}
-  - {fileID: 11400000, guid: 131cb92b8b76bd347bbf66d90edb2dd1, type: 2}
+  MergeEffect: {fileID: 2286857043239898498, guid: d4dd79f0c33af3f4ebb67905c7982525, type: 3}

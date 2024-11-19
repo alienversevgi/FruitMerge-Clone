@@ -1,1 +1,20 @@
 syntax = "proto3";
+
+message ProtoPlayerData{
+  int32 highScore = 1;
+}
+
+message ProtoGameAreaData{
+  int32 score = 1;
+  int32 dropperLevel = 2;
+  repeated ProtoEntitySaveData entities = 3;
+  repeated int32 nextEntities = 4;
+}
+
+message ProtoEntitySaveData{
+  int32 level = 1;
+  float posX = 2;
+  float posY = 3;
+  float rotationZ =4;
+}
+

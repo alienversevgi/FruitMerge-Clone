@@ -40,9 +40,23 @@ namespace FruitMerge.Events
             public int Score { get; set; }
         }
 
-        public struct SafeAreaChanged
+        public struct OnSafeAreaChanged
         {
             public SafeAreaAnchor SafeAreaAnchor { get; set; }
+        }
+
+        public struct OnGameOver
+        {
+        }
+        
+        public struct OnEntityAdded
+        {
+            public Entity Entity { get; set; }
+        }
+        
+        public struct OnEntityRemoved
+        {
+            public Entity Entity { get; set; }
         }
     }
 }

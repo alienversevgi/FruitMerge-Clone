@@ -1,5 +1,6 @@
 using System;
 using DG.Tweening;
+using FruitMerge.Events;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using Zenject;
@@ -8,7 +9,8 @@ namespace FruitMerge.Game
 {
     public class Entity : MonoBehaviour,IDisposable
     {
-        [Inject] private MergeController _mergeController;
+        [Inject] private MergeHandler _mergeHandler;
+        [Inject] private SignalBus _signalBus;
 
         [SerializeField] [Range(Const.MIN_ENTITY_LEVEL, Const.MAX_ENTITY_LEVEL)]
         private int level;
@@ -44,7 +46,7 @@ namespace FruitMerge.Game
                 return;
 
             ContactPoint = collision.contacts[0].point;
-            _mergeController.CheckMerge(this, entity);
+            _mergeHandler.CheckMerge(this, entity);
         }
 
         public void SetActivePhysics(bool isActive)
@@ -63,6 +65,10 @@ namespace FruitMerge.Game
         {
             _rigidBody.DOKill();
             this.transform.DOKill();
+            _signalBus.Fire(new GameSignals.OnEntityRemoved()
+            {
+                Entity = this
+            });
             Destroy(this.gameObject);
         }
     }
