@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using FruitMerge.Events;
 using FruitMerge.Game.UI;
 using FruitMerge.Managers;
+using FruitMerge.UI;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using Zenject;
@@ -37,7 +38,7 @@ namespace FruitMerge.Game
             if (_dataManager.GameAreaData.Entities.Count > 0)
                 LoadGameAreaData();
             else
-                StartNewGame();
+                StartGame();
         }
 
         private void LoadGameAreaData()
@@ -58,18 +59,16 @@ namespace FruitMerge.Game
                 Entities[i].Initialize(true);
             }
 
-            _nextQueueHandler.SetData(gameAreaData.DropperLevel,gameAreaData.NextEntities);
-            _nextQueueHandler.Initialize();
-            _entityDropController.Initialize();
-            _gameUI.Initialize();
-
-            SubscribeEvents();
+            _nextQueueHandler.SetData(gameAreaData.DropperLevel, gameAreaData.NextEntities);
+            StartGame();
+            _gameUI.ShowPanel<ContinuePanelView>();
         }
 
-        private void StartNewGame()
+        private void StartGame()
         {
             _nextQueueHandler.Initialize();
             _entityDropController.Initialize();
+            _inputHandler.Initialize();
             _gameUI.Initialize();
 
             SubscribeEvents();
@@ -86,7 +85,8 @@ namespace FruitMerge.Game
         private void GameOver()
         {
             _dataManager.SaveHighScore(Score);
-            _gameUI.ShowGameOverPanel();
+            _dataManager.DeleteGameAreaData();
+            _gameUI.ShowPanel<GameOverPanelView>();
         }
 
         private void OnEntityRemoved(GameSignals.OnEntityRemoved signalData)
@@ -132,7 +132,8 @@ namespace FruitMerge.Game
         [Button]
         private void SaveGameAreaData()
         {
-            _dataManager.SaveGameAreaData(Entities, _nextQueueHandler.CurrentLevel, Score, _nextQueueHandler.GetQueue());
+            _dataManager.SaveGameAreaData(Entities, _nextQueueHandler.CurrentLevel, Score,
+                _nextQueueHandler.GetQueue());
         }
 
         public void Dispose()

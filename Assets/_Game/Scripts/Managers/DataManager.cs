@@ -86,5 +86,11 @@ namespace FruitMerge.Managers
         }
 
         #endregion
+
+        public void DeleteGameAreaData()
+        {
+            GameAreaData = ScriptableObject.CreateInstance<GameAreaData>();
+            DataHandler.SaveData(GameAreaData, nameof(GameAreaData));
+        }
     }
 }
