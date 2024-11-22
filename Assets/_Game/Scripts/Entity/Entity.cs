@@ -7,7 +7,7 @@ using Zenject;
 
 namespace FruitMerge.Game
 {
-    public class Entity : MonoBehaviour,IDisposable
+    public class Entity : MonoBehaviour, IDisposable
     {
         [Inject] private MergeHandler _mergeHandler;
         [Inject] private SignalBus _signalBus;
@@ -21,6 +21,7 @@ namespace FruitMerge.Game
         public int Level => level;
         public bool IsReadyToEndLine { get; private set; }
         public Vector2 ContactPoint { get; private set; }
+
 
         public void Initialize(bool isPhysicsActive)
         {
@@ -51,7 +52,7 @@ namespace FruitMerge.Game
 
         public void SetActivePhysics(bool isActive)
         {
-            _circleCollider.enabled = isActive;
+             _circleCollider.enabled = isActive;
             _rigidBody.bodyType = isActive ? RigidbodyType2D.Dynamic : RigidbodyType2D.Kinematic;
         }
 

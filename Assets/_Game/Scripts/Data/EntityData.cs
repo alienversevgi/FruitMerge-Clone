@@ -12,5 +12,6 @@ namespace _Game.Scripts.Data
         public Color Color;
         public Entity Prefab;
         public int Score;
+        public float ValidBound;
     }
 }

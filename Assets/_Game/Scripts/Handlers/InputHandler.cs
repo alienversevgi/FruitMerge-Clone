@@ -18,12 +18,13 @@ namespace FruitMerge.Game
         private Vector3 _dragPosition;
         private bool _isActive;
         private Vector3 _mousePosition;
-        private List<RaycastResult> _raycastResults = new List<RaycastResult>();
-        private LayerMask _panelMask;
-        
+        private List<RaycastResult> _graphicRaycastResults;
+        private LayerMask _uiMask;
+
         public void Initialize()
         {
-            _panelMask = LayerMask.GetMask("IgnoreInput");
+            _uiMask = LayerMask.GetMask("IgnoreInput");
+            _graphicRaycastResults = new List<RaycastResult>();
             SetActive(true);
         }
 
@@ -33,10 +34,10 @@ namespace FruitMerge.Game
             {
                 SetActive(!DetectUIElement());
             }
-            
+
             if (!_isActive)
                 return;
-            
+
             HandleDrag();
         }
 
@@ -80,20 +81,20 @@ namespace FruitMerge.Game
 
         private bool DetectUIElement()
         {
-            _raycastResults.Clear();
+            _graphicRaycastResults.Clear();
 
             PointerEventData pointerEventData = new PointerEventData(_eventSystem)
             {
                 position = Input.mousePosition
             };
 
-            _graphicRaycaster.Raycast(pointerEventData, _raycastResults);
+            _graphicRaycaster.Raycast(pointerEventData, _graphicRaycastResults);
 
             bool hasUIElement = false;
-            for (var index = 0; index < _raycastResults.Count; index++)
+            for (var index = 0; index < _graphicRaycastResults.Count; index++)
             {
-                var result = _raycastResults[index];
-                hasUIElement = (_panelMask.value & (1 << result.gameObject.layer)) != 0;
+                var result = _graphicRaycastResults[index];
+                hasUIElement = (_uiMask.value & (1 << result.gameObject.layer)) != 0;
                 if (hasUIElement)
                 {
                     //Debug.Log("Detected UI Element: " + result.gameObject.name);

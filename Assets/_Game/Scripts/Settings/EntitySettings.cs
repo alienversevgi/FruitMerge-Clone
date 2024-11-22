@@ -14,5 +14,7 @@ namespace FruitMerge.Game
         public Entity GetPrefab(int level) => entities[level].Prefab;
         public int GetScore(int level) => entities[level].Score;
         public Color GetColor(int level) => entities[level].Color;
+        
+        public float GetValidBound(int level) => entities[level].ValidBound;
     }
 }

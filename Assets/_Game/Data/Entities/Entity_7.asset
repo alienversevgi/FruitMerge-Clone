@@ -17,3 +17,4 @@ MonoBehaviour:
   Color: {r: 0.9960785, g: 0.6039216, b: 0.97647065, a: 1}
   Prefab: {fileID: 2144700638996948276, guid: 07f96d6fe664b184eb0c974307126266, type: 3}
   Score: 35
+  ValidBound: 0
