@@ -1,6 +1,7 @@
 ﻿using _Game.Scripts.Misc;
 using FruitMerge.Events;
 using FruitMerge.Util;
+using UnityEngine;
 using Zenject;
 
 namespace FruitMerge.Game
@@ -13,7 +14,7 @@ namespace FruitMerge.Game
 
         private void Merge(Entity from, Entity to)
         {
-            // Debug.Log($"Merge : {from.gameObject.name} - {to.gameObject.name}");
+            Debug.Log($"Merge : {from.gameObject.name} - {to.gameObject.name}");
             int currentLevel = from.Level;
             int nextLevel = currentLevel + 1;
             from.Dispose();

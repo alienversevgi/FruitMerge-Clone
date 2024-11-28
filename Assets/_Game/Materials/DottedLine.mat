@@ -58,7 +58,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _MainTex:
         m_Texture: {fileID: 2800000, guid: 92a016cdfb94b6c49827cd55f7a78d3b, type: 3}
-        m_Scale: {x: 1, y: 1}
+        m_Scale: {x: 15, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
         m_Texture: {fileID: 0}
@@ -96,8 +96,9 @@ Material:
     - _DistortionStrengthScaled: 0
     - _DstBlend: 0
     - _EmissionEnabled: 0
+    - _End: 1
     - _FlipbookMode: 0
-    - _Float: 0.96
+    - _Float: 1
     - _Float_1: -24.45
     - _GlossMapScale: 1
     - _Glossiness: 0.5
@@ -108,18 +109,20 @@ Material:
     - _Mode: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02
+    - _ShadingValue: 0
     - _SmoothnessTextureChannel: 0
     - _SoftParticlesEnabled: 0
     - _SoftParticlesFarFadeDistance: 1
     - _SoftParticlesNearFadeDistance: 0
     - _SpecularHighlights: 1
-    - _Speed: 0.91
+    - _Speed: 0.05
     - _SrcBlend: 1
+    - _Start: 0
     - _Tiling: 1
     - _UVSec: 0
     - _ZWrite: 1
     - _a: 1
-    - _b: 0.94
+    - _b: 0
     m_Colors:
     - _BottomColor: {r: 1, g: 1, b: 1, a: 1}
     - _CameraFadeParams: {r: 0, g: Infinity, b: 0, a: 0}

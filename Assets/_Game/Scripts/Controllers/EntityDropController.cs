@@ -6,22 +6,24 @@ namespace FruitMerge.Game
 {
     public class EntityDropController : MonoBehaviour
     {
+        [SerializeField] private Renderer line;
 
         [Inject] private EntityFactory _entityFactory;
         [Inject] private SignalBus _signalBus;
         [Inject] private NextQueueHandler _nextQueueHandler;
         [Inject] private EntitySettings _entitySettings;
 
-        public Entity Current => _currentCurrent;
-
-        private Entity _currentCurrent;
+        private Entity _current;
         private Vector3 _defaultPosition;
         private float _validBound;
-        private LineRenderer _lineRenderer;
+        private ContactFilter2D _lineFilter;
+        private RaycastHit2D[] _lineHit;
+        private MaterialPropertyBlock _lineMPB;
 
         private static readonly int LineRendererColorName = Shader.PropertyToID("_Color");
+        private static readonly int ShadingValue = Shader.PropertyToID("_ShadingValue");
 
-        private bool _isEntityReady => _currentCurrent is not null;
+        private bool _isEntityReady => _current is not null;
 
         public void Initialize()
         {
@@ -30,8 +32,16 @@ namespace FruitMerge.Game
             _signalBus.Subscribe<GameSignals.OnQueueAnimationCompleted>(OnQueueUpdated);
 
             _defaultPosition = this.transform.position;
-            _lineRenderer = this.GetComponent<LineRenderer>();
-            _lineRenderer.enabled = false;
+            _lineMPB = new MaterialPropertyBlock();
+            line.GetPropertyBlock(_lineMPB);
+            line.enabled = false;
+
+            _lineHit = new RaycastHit2D[1];
+            _lineFilter = new ContactFilter2D()
+            {
+                layerMask = LayerMask.GetMask("Ground", "Entity"),
+            };
+
             Spawn(_nextQueueHandler.StarterLevel);
         }
 
@@ -43,28 +53,29 @@ namespace FruitMerge.Game
         private void Spawn(in int level)
         {
             this.transform.position = _defaultPosition;
-            _currentCurrent = _entityFactory.SpawnEntity(level, _defaultPosition);
-            _currentCurrent.Initialize(false);
-            _validBound = _entitySettings.GetValidBound(_currentCurrent.Level);
-            _lineRenderer.material.SetColor(LineRendererColorName, _entitySettings.GetColor(_currentCurrent.Level));
-            _lineRenderer.enabled = true;
+            _current = _entityFactory.SpawnEntity(level, _defaultPosition);
+            _current.Initialize(false);
+            _validBound = _entitySettings.GetValidBound(_current.Level);
+            _lineMPB.SetColor(LineRendererColorName, _entitySettings.GetColor(_current.Level));
+            SetLineEndPoint();
+            line.enabled = true;
         }
 
         private void Release()
         {
             _signalBus.Fire(new GameSignals.OnEntityReleased()
             {
-                EntityLevel = _currentCurrent.Level
+                EntityLevel = _current.Level
             });
 
             _signalBus.Fire(new GameSignals.OnEntityAdded()
             {
-                Entity = _currentCurrent
+                Entity = _current
             });
 
-            _currentCurrent.SetActivePhysics(true);
-            _currentCurrent = null;
-            _lineRenderer.enabled = false;
+            _current.SetActivePhysics(true);
+            _current = null;
+            line.enabled = false;
         }
 
         private void Move(float x)
@@ -73,7 +84,19 @@ namespace FruitMerge.Game
             newPosition.x = Mathf.Clamp(x, _validBound * -1, _validBound);
 
             this.transform.position = newPosition;
-            _currentCurrent.transform.position = this.transform.position;
+            _current.transform.position = this.transform.position;
+        }
+
+        private void SetLineEndPoint()
+        {
+            Physics2D.Raycast(this.transform.position, Vector2.down, _lineFilter, _lineHit);
+            if (_lineHit[0].collider is not null)
+            {
+                float shadingValue = _lineHit[0].distance / 16.8f;
+                shadingValue = 1 + (1 - shadingValue);
+                _lineMPB.SetFloat(ShadingValue, shadingValue);
+                line.SetPropertyBlock(_lineMPB);
+            }
         }
 
         private void OnDraggingCompleted(GameSignals.OnDraggingCompleted eventData)
@@ -90,6 +113,7 @@ namespace FruitMerge.Game
                 return;
 
             Move(eventData.Position.x);
+            SetLineEndPoint();
         }
     }
 }
